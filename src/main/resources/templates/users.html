@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div>
+    <h2>Информация пользователей</h2>
+
+    <table border="2">
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Эл. почта</th>
+            <th sec:authorize="hasRole('ADMIN')">Операции</th>
+        </tr>
+
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+
+<!--            <td style="display:flex; gap:5px;">-->
+            <td sec:authorize="hasRole('ADMIN')" style="display:flex; gap:5px;">
+                <form th:action="@{/users/edit/{id}(id=${user.id})}" method="get">
+                    <button type="submit">Изменить</button>
+                </form>
+
+
+                <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <td sec:authorize="hasRole('ADMIN')" style="display:flex; gap:5px;">
+    <form th:action="@{/users/new-user}" method="get">
+        <button type="submit">Добавить нового пользователя</button>
+    </form>
+    </td>
+
+    <br>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти из приложения</button>
+    </form>
+</div>
+</body>
+</html>
+
+<!-- <a th:href="@{/update-user(id=${user.id})}">Update</a>-->
+<!-- <a th:href="@{/delete-user(id=${user.id})}">Delete</a>-->
+<!-- <a th:href="@{/add-user}">Add new user</a>-->
