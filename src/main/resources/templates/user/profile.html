@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div>
+    <h2>Информация пользователей</h2>
+
+    <table border="2">
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Эл. почта</th>
+            <th>Логин</th>
+        </tr>
+        <tr th:each="user : ${user}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.username}"></td>
+        </tr>
+    </table>
+
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти из приложения</button>
+    </form>
+</div>
+</body>
+</html>

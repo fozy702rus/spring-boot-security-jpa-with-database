@@ -10,7 +10,7 @@
     <h2>Добавление нового пользователя</h2>
     <td>Пожалуйста, введите информацию:</td>
 
-    <form th:action="@{/users/new-user/save}" method="post" th:object="${user}">
+    <form th:action="@{/admin/new-user}" method="post" th:object="${user}">
         <br>
         <input type="text" th:field="*{firstName}" placeholder="Имя"/>
         <br><br>
@@ -25,7 +25,7 @@
         <input type="submit" value="Добавить"/>
     </form>
 <br>
-    <form th:action="@{/users/back}" method="get">
+    <form th:action="@{/admin}" method="get">
         <button type="submit">Назад</button>
     </form>
 

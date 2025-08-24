@@ -33,6 +33,11 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User getUserByUsername(String username) {
+
+        return userRepository.findByUsername(username);
+    }
+
     public void addUser(User user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

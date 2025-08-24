@@ -11,22 +11,23 @@
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Эл. почта</th>
-            <th sec:authorize="hasRole('ADMIN')">Операции</th>
+            <th>Логин</th>
+            <th>Операции</th>
         </tr>
 
         <tr th:each="user : ${users}">
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
+            <td th:text="${user.username}"></td>
 
-<!--            <td style="display:flex; gap:5px;">-->
-            <td sec:authorize="hasRole('ADMIN')" style="display:flex; gap:5px;">
-                <form th:action="@{/users/edit/{id}(id=${user.id})}" method="get">
+            <td style="display: flex; gap: 5px;">
+                <form th:action="@{/admin/edit/{id}(id=${user.id})}" method="get">
                     <button type="submit">Изменить</button>
                 </form>
 
-
-                <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
+                <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE"/>
                     <button type="submit">Удалить</button>
                 </form>
             </td>
@@ -35,10 +36,10 @@
 
     <br>
 
-    <td sec:authorize="hasRole('ADMIN')" style="display:flex; gap:5px;">
-    <form th:action="@{/users/new-user}" method="get">
-        <button type="submit">Добавить нового пользователя</button>
-    </form>
+    <td>
+        <form th:action="@{/admin/new-user}" method="get">
+            <button type="submit">Добавить нового пользователя</button>
+        </form>
     </td>
 
     <br>
@@ -49,7 +50,3 @@
 </div>
 </body>
 </html>
-
-<!-- <a th:href="@{/update-user(id=${user.id})}">Update</a>-->
-<!-- <a th:href="@{/delete-user(id=${user.id})}">Delete</a>-->
-<!-- <a th:href="@{/add-user}">Add new user</a>-->

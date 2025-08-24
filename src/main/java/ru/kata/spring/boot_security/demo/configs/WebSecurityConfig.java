@@ -33,7 +33,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers( "/users/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/users/**").hasRole("USER")
                         .anyRequest().permitAll())
                 .formLogin(form -> form.successHandler(successUserHandler));
         return http.build();
@@ -52,5 +52,12 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+
+        HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
+        return hiddenHttpMethodFilter;
     }
 }

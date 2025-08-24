@@ -9,7 +9,8 @@
 <div>
     <h2>Изменение данных пользователя</h2>
     <td>Пожалуйста, измените информацию:</td>
-    <form th:action="@{/users/edit/{id}(id=${user.id})}" method="post" th:object="${user}">
+    <form th:action="@{/admin/edit/{id}(id=${user.id})}" method="post" th:object="${user}">
+        <input type="hidden" name="_method" value="PUT"/>
         <br>
         <input type="text" th:field="*{firstName}" placeholder="First Name"/>
         <br><br>
@@ -20,7 +21,7 @@
         <input type="submit" value="Сохранить изменения"/>
     </form>
     <br>
-    <form th:action="@{/users/back}" method="get">
+    <form th:action="@{/admin}" method="get">
         <button type="submit">Назад</button>
     </form>
 
