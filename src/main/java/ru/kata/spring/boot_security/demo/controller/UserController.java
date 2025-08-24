@@ -13,13 +13,13 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/profile")
-@PreAuthorize("hasAnyRole('USER')")
+@PreAuthorize("hasRole('USER')")
 public class UserController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
