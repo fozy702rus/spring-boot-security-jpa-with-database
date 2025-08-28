@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/users/**").hasRole("USER")
-                        .requestMatchers("/api/**").authenticated() // REST API защищаем
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form
                         .successHandler(successUserHandler))
@@ -56,6 +56,7 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 

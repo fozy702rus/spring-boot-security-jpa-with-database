@@ -7,7 +7,6 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
-
 import java.util.List;
 import java.util.Set;
 
@@ -34,7 +33,6 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-
         return userRepository.findByUsername(username);
     }
 
@@ -44,7 +42,6 @@ public class UserService {
 
         Role role = roleRepository.findByName("ROLE_USER").
                 orElseThrow(() -> new RuntimeException("Role not found"));
-
         user.setRoles(Set.of(role));
 
         userRepository.save(user);
