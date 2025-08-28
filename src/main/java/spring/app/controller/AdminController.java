@@ -1,12 +1,13 @@
-package ru.kata.spring.boot_security.demo.controller;
+package spring.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import spring.app.model.User;
+import spring.app.service.UserService;
+
 import java.util.List;
 
 @Controller
@@ -22,7 +23,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public String getUsers(Model model) {
+    public String usersInfo(Model model) {
 
         List<User> users = userService.getUsers();
         model.addAttribute("users", users);
@@ -30,8 +31,17 @@ public class AdminController {
         return "admin/main_page";
     }
 
+    @GetMapping("/user/{id}")
+    public String getUserById(@PathVariable("id") Integer id, Model model) {
+
+        User user = userService.getUserById(id);
+        model.addAttribute("userById", user);
+
+        return "admin/user_details";
+    }
+
     @GetMapping("/new-user")
-    public String showAddUserForm(Model model) {
+    public String addUser(Model model) {
 
         model.addAttribute("user", new User());
 
@@ -47,7 +57,7 @@ public class AdminController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateUserForm(@PathVariable int id, Model model) {
+    public String editUser(@PathVariable int id, Model model) {
 
         User user = userService.getUserById(id);
 

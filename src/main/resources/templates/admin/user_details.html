@@ -4,8 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div>
-    <h2>Информация пользователей</h2>
-
+    <h2>Информация о пользователе</h2>
     <table border="2">
         <tr>
             <th>ID</th>
@@ -16,35 +15,25 @@
             <th>Операции</th>
         </tr>
 
-        <tr th:each="user : ${users}">
-
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.username}"></td>
+        <tr>
+            <td th:text="${userById.id}"></td>
+            <td th:text="${userById.firstName}"></td>
+            <td th:text="${userById.lastName}"></td>
+            <td th:text="${userById.email}"></td>
+            <td th:text="${userById.username}"></td>
 
             <td style="display: flex; gap: 5px;">
-                <form th:action="@{/admin/edit/{id}(id=${user.id})}" method="get">
+                <form th:action="@{/admin/edit/{id}(id=${userById.id})}" method="get">
                     <button type="submit">Редактировать</button>
                 </form>
 
-                <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post"
-                    onsubmit="return confirm('Вы уверены, что хотите удалить этого пользователя?');">
-                    <input type="hidden" name="_method" value="delete"/>
+                <form th:action="@{/admin/delete/{id}(id=${userById.id})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE"/>
                     <button type="submit">Удалить</button>
                 </form>
             </td>
         </tr>
     </table>
-
-    <br>
-
-    <td>
-        <form th:action="@{/admin/new-user}" method="get">
-            <button type="submit">Добавить нового пользователя</button>
-        </form>
-    </td>
 
     <br>
 

@@ -1,6 +1,6 @@
-package ru.kata.spring.boot_security.demo.dto;
+package spring.app.dto;
 
-import ru.kata.spring.boot_security.demo.model.User;
+import spring.app.model.User;
 
 public class UserMapper {
 

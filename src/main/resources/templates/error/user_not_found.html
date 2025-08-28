@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Произошла ошибка при получении пользователя</h2>
+
+<p th:text="${errorMessage}"></p>
+
+<form th:action="@{/admin}" method="get">
+    <button type="submit">Вернуться к списку пользователей</button>
+</form>
+
+</body>
+</html>

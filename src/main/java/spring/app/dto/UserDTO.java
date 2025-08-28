@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.dto;
+package spring.app.dto;
 
 public class UserDTO {
 

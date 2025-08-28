@@ -1,12 +1,14 @@
-package ru.kata.spring.boot_security.demo.service;
+package spring.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import spring.app.exception.UserNotFoundException;
+import spring.app.model.Role;
+import spring.app.model.User;
+import spring.app.repository.RoleRepository;
+import spring.app.repository.UserRepository;
+
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +31,8 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public User getUserByUsername(String username) {
@@ -40,8 +43,9 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_USER").
-                orElseThrow(() -> new RuntimeException("Role not found"));
+        Role role = roleRepository
+                .findByName("ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Role not found"));
         user.setRoles(Set.of(role));
 
         userRepository.save(user);
@@ -49,8 +53,9 @@ public class UserService {
 
     public void updateUser(User user) {
 
-        User existingUser = userRepository.findById(user.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User existingUser = userRepository
+                .findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException(user.getId()));
 
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
@@ -60,6 +65,9 @@ public class UserService {
     }
 
     public void deleteUser(int id) {
-        userRepository.deleteById(id);
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        userRepository.delete(user);
     }
 }
